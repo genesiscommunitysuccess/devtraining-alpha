@@ -6,6 +6,7 @@ dependencies {
     api("global.genesis:genesis-pal-streamer")
     api("global.genesis:genesis-pal-streamerclient")
     api("global.genesis:genesis-pal-eventhandler")
+    api(project(":alpha-eventhandler"))
     compileOnly(project(path = ":alpha-dictionary-cache", configuration = "codeGen"))
     testCompileOnly(project(":alpha-config"))
     testImplementation("global.genesis:genesis-dbtest")
