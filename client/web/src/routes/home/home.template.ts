@@ -20,7 +20,6 @@ export const HomeTemplate = html<Home>`
           updateEvent = "EVENT_TRADE_MODIFY"
           deleteEvent = "EVENT_TRADE_CANCELLED"
           :columns=${x => x.columns}
-          :permissions=${x => x.permissionsTrade}
         ></entity-management>
     </div>
     <div class="top-layout">

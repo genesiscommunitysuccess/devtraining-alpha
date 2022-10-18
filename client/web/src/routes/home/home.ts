@@ -58,7 +58,6 @@ const COLUMNS = [
 })
 export class Home extends FASTElement {
   @observable columns: any = COLUMNS;
-  @observable permissionsTrade: Permissions[] = [];
 
   public positionsGrid!: ZeroGridPro;
 
@@ -66,6 +65,5 @@ export class Home extends FASTElement {
 
   constructor() {
     super();
-    //this.permissionsTrade = [Permissions.add, Permissions.edit, Permissions.delete]; //permissions will show the Grid buttons
   }
 }
