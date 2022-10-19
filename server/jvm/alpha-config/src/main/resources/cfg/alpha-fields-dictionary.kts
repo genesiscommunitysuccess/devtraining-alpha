@@ -18,7 +18,7 @@ fields {
     field("DIRECTION", type = ENUM("BUY", "SELL", default = "BUY"))
 
     field("COUNTERPARTY_ID", type = STRING)
-    field("NAME", type = STRING)
+    // field("NAME", type = STRING)
     field("ENABLED", type = BOOLEAN)
     field("COUNTERPARTY_LEI", type = STRING)
 
