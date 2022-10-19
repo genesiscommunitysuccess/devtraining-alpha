@@ -1,8 +1,8 @@
 import {attr, customElement, FASTElement, observable, volatile} from '@microsoft/fast-element';
 import {HomeTemplate as template} from './home.template';
 import {HomeStyles as styles} from './home.styles';
-import {EntityManagement, Permissions} from '@genesislcap/foundation-entity-management';
-import {AgGrid} from '@genesislcap/foundation-zero';
+import {EntityManagement} from '@genesislcap/foundation-entity-management';
+import {ZeroGridPro} from '@genesislcap/foundation-zero-grid-pro';
 import {Connect} from '@genesislcap/foundation-comms';
 
 EntityManagement; //imported from '@genesislcap/foundation-entity-management' to display Trade grid
@@ -58,14 +58,12 @@ const COLUMNS = [
 })
 export class Home extends FASTElement {
   @observable columns: any = COLUMNS;
-  @observable permissionsTrade: Permissions[] = [];
 
-  public positionsGrid!: AgGrid;
+  public positionsGrid!: ZeroGridPro;
 
   @Connect connection: Connect;
 
   constructor() {
     super();
-    this.permissionsTrade = [Permissions.add, Permissions.edit, Permissions.delete]; //permissions will show the Grid buttons
   }
 }
