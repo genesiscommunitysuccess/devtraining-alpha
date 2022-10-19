@@ -1,9 +1,9 @@
 ext.set("localDaogenVersion", "ALPHA")
 
 plugins {
-    kotlin("jvm") version "1.6.10"
+    kotlin("jvm") version "1.7.10"
     `maven-publish`
-    id("global.genesis.build") version "6.1.7"
+    id("global.genesis.build") version "6.2.3"
 }
 
 subprojects  {
@@ -12,7 +12,7 @@ subprojects  {
 
 
     dependencies {
-        implementation(platform("global.genesis:genesis-bom:6.1.7"))
+        implementation(platform("global.genesis:genesis-bom:6.2.3"))
         implementation("org.agrona:agrona:1.10.0!!")
         testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.6.10")
         constraints {
@@ -30,7 +30,7 @@ subprojects  {
 
         compileKotlin {
             kotlinOptions { jvmTarget = java }
-            sourceCompatibility = java
+            //sourceCompatibility = java
         }
     }
 }
