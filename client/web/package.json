@@ -59,8 +59,6 @@
     "webpack-merge": "^5.7.3"
   },
   "dependencies": {
-    "@ag-grid-enterprise/server-side-row-model": "^27.0.0",
-    "@ag-grid-enterprise/core": "^27.0.0",
     "@genesislcap/foundation-comms": "^5.0.0",
     "@genesislcap/foundation-entity-management": "^5.0.0",
     "@genesislcap/foundation-header": "^5.0.0",
