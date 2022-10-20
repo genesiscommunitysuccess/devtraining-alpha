@@ -45,7 +45,7 @@ class TradeViewTest : AbstractDatabaseTest() {
             assertEquals("Testing AG", tradeView.counterpartyName)
             assertEquals("FOO.L", tradeView.instrumentName)
             assertEquals(now, tradeView.tradeDate)
-            assertEquals(12.0, tradeView.price)
+            assertEquals(12.0, tradeView.price, 0.0)
             assertEquals((100).toInt(), tradeView.quantity)
             assertEquals(Direction.BUY, tradeView.direction)
         }
@@ -62,7 +62,7 @@ class TradeViewTest : AbstractDatabaseTest() {
         assertEquals("Testing AG", tradeView.counterpartyName)
         assertEquals("BAR.L", tradeView.instrumentName)
         assertEquals(now, tradeView.tradeDate)
-        assertEquals(12.0, tradeView.price)
+        assertEquals(12.0, tradeView.price, 0.0)
         assertEquals((100).toInt(), tradeView.quantity)
         assertEquals(Direction.BUY, tradeView.direction)
     }
