@@ -30,7 +30,7 @@ tables {
 
     table (name = "COUNTERPARTY", id = 2001) {
         sequence(COUNTERPARTY_ID, "CP")
-        NAME
+        COUNTERPARTY_NAME
         ENABLED
         COUNTERPARTY_LEI
 
@@ -41,7 +41,7 @@ tables {
 
     table (name = "INSTRUMENT", id = 2002) {
         sequence(INSTRUMENT_ID, "IN")
-        NAME
+        INSTRUMENT_NAME
         MARKET_ID
         COUNTRY_CODE
         CURRENCY_ID

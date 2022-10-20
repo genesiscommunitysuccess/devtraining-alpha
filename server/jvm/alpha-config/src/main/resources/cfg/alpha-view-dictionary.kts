@@ -24,8 +24,8 @@ views {
         fields {
             TRADE.allFields()
 
-            COUNTERPARTY.NAME withPrefix COUNTERPARTY
-            INSTRUMENT.NAME withPrefix INSTRUMENT
+            COUNTERPARTY.COUNTERPARTY_NAME withPrefix COUNTERPARTY
+            INSTRUMENT.INSTRUMENT_NAME withPrefix INSTRUMENT
             INSTRUMENT.CURRENCY_ID withAlias "CURRENCY"
 
             derivedField("CONSIDERATION", DOUBLE) {
