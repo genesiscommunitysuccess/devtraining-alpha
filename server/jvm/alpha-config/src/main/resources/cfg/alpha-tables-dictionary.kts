@@ -78,4 +78,16 @@ tables {
         }
     }
 
+    table(name = "ORDER", id = 2005) {
+        sequence(ORDER_ID, "OI")
+        INSTRUMENT_ID not null
+        QUANTITY not null
+        PRICE not null
+        DIRECTION
+        NOTES
+        primaryKey {
+            ORDER_ID
+        }
+    }
+
 }
