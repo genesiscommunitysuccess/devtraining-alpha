@@ -38,6 +38,7 @@ target/
 **/build/
 !src/**/build/
 bin/
+client/bootstrapDone
 
 # Ignore Gradle GUI config
 gradle-app.setting
