@@ -12,6 +12,7 @@ import {Route, RouterConfiguration} from '@microsoft/fast-router';
 import {defaultLayout, loginLayout} from '../layouts';
 import {Home} from './home/home';
 import {NotFound} from './not-found/not-found';
+import { MarketdataComponent } from './playground/playground';
 
 export class MainRouterConfig extends RouterConfiguration<LoginSettings> {
   constructor(
@@ -25,6 +26,8 @@ export class MainRouterConfig extends RouterConfiguration<LoginSettings> {
 
   public allRoutes = [
     { index: 1, path: 'home', title: 'Home', icon: 'home', variant: 'solid' },
+    { index: 3, path: 'playground', title: 'Playground', icon: 'home', variant: 'solid' },
+
   ];
 
   public configure() {
@@ -38,6 +41,7 @@ export class MainRouterConfig extends RouterConfiguration<LoginSettings> {
       {path: 'login', element: Login, title: 'Login', name: 'login', settings: {public: true, defaultRedirectUrl: 'home', autoConnect: true}, layout: loginLayout},
       {path: 'home', element: Home, title: 'Home', name: 'home', settings: commonSettings},
       {path: 'not-found', element: NotFound, title: 'Not Found', name: 'not-found'},
+      {path: 'playground', element: MarketdataComponent, title: 'Playground', name: 'playground', settings: commonSettings}
     );
 
     const auth = this.auth;
