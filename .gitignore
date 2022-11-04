@@ -9,6 +9,7 @@ pids
 *.pid
 *.seed
 *.pid.lock
+bin/
 
 # Output of 'npm pack'
 *.tgz
@@ -37,6 +38,7 @@ target/
 .gradle
 **/build/
 !src/**/build/
+client/bootstrapDone
 
 # Ignore Gradle GUI config
 gradle-app.setting

@@ -3,7 +3,7 @@ ext.set("localDaogenVersion", "ALPHA")
 plugins {
     kotlin("jvm") version "1.7.10"
     `maven-publish`
-    id("global.genesis.build") version "6.2.3"
+    id("global.genesis.build") version "6.3.0-ALPHA3"
 }
 
 subprojects  {
@@ -12,7 +12,7 @@ subprojects  {
 
 
     dependencies {
-        implementation(platform("global.genesis:genesis-bom:6.2.3"))
+        implementation(platform("global.genesis:genesis-bom:6.3.0-ALPHA3"))
         implementation("org.agrona:agrona:1.10.0!!")
         testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.6.10")
         constraints {
@@ -87,7 +87,7 @@ allprojects {
         }
         mavenCentral()
         maven {
-            url = uri("https://genesisglobal.jfrog.io/genesisglobal/libs-release-client")
+            url = uri("https://genesisglobal.jfrog.io/genesisglobal/dev-repo")
             credentials {
                 username = properties["genesisArtifactoryUser"].toString()
                 password = properties["genesisArtifactoryPassword"].toString()

@@ -1,5 +1,5 @@
 plugins {
-    id("global.genesis.deploy") version "6.2.3"
+    id("global.genesis.deploy") version "6.3.0-ALPHA3"
 }
 
 description = "alpha-deploy"
@@ -8,14 +8,14 @@ dependencies {
     implementation(
         group = "global.genesis",
         name = "genesis-distribution",
-        version = "6.2.3",
+        version = "6.3.0-ALPHA3",
         classifier = "bin",
         ext = "zip"
     )
     implementation(
         group = "global.genesis",
         name = "auth-distribution",
-        version = "6.2.3",
+        version = "6.3.0-RC1",
         classifier = "bin",
         ext = "zip"
     )
