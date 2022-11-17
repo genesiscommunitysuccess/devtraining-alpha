@@ -1,4 +1,4 @@
-import {attr, customElement, FASTElement, observable, volatile} from '@microsoft/fast-element';
+import {customElement, FASTElement, observable} from '@microsoft/fast-element';
 import {HomeTemplate as template} from './home.template';
 import {HomeStyles as styles} from './home.styles';
 import {EntityManagement} from '@genesislcap/foundation-entity-management';

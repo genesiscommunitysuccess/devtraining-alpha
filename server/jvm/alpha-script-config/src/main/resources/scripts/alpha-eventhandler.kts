@@ -35,9 +35,15 @@ eventHandler {
         }
         onCommit { event ->
             val trade = event.details
-            trade.enteredBy = event.userName
-            stateMachine.insert(entityDb, trade)
-            ack()
+
+            if (trade.quantity!! > 0) {
+                trade.enteredBy = event.userName
+                stateMachine.insert(entityDb, trade)
+                ack()
+            }
+            else {
+                nack("Quantity must be positive")
+            }
         }
     }
 
