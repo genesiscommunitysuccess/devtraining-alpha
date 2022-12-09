@@ -55,7 +55,12 @@ COPY docker-scripts/remap.sh /scripts/remap.sh
 RUN chmod +x /scripts/remap.sh &&\
    /scripts/remap.sh
 
-FROM remap as entryPoint
+FROM remap as loaddata
+COPY docker-scripts/loaddata.sh /scripts/loaddata.sh
+RUN ["chmod", "+x", "/scripts/loaddata.sh"]
+RUN ["/scripts/loaddata.sh"]
+
+FROM loaddata as entryPoint
 COPY docker-scripts/docker-entrypoint.sh /scripts/docker-entrypoint.sh
 RUN chmod +x /scripts/docker-entrypoint.sh
 ENTRYPOINT ["/scripts/docker-entrypoint.sh"]
