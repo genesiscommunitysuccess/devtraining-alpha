@@ -6,29 +6,34 @@ Answer-key of the Developer Training. This is the complete application built dur
 From the command line, cd into the root directory of the project and then follow these steps.
 
 ## Build
-```powershell Run
+```shell
 ./gradlew assemble
 ```
-Run:
-1. ./gradlew assemble
 
 ## Run
 Make sure Docker is running on your machine and run:
-1. docker-compose up -d
+```shell
+docker-compose up -d
+```
 
 Now log into the `gsf` container:
-2. docker exec -it gsf bash
+```shell
+docker exec -it gsf bash
+```
 
-and load the reference data:
-3. su - alpha
-4. cd /home/alpha/run/site-specific/data
-5. SendIt -a
-(make sure answer Yes to the command prompt)
-6. SetPrimary
-(make sure answer Yes to the command prompt)
+And load the reference data (make sure answer Yes to the command prompt):
+```shell
+su - alpha
+cd /home/alpha/run/site-specific/data
+SendIt -a
+SetPrimary
+```
 
-check if all services are running:
-7. mon
+Check if all services are running:
+```shell
+mon
+```
+
 Feel free to keep running `mon` until all services are RUNNING.
 
 ## Test
