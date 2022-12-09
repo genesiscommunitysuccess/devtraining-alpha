@@ -6,6 +6,9 @@ Answer-key of the Developer Training. This is the complete application built dur
 From the command line, cd into the root directory of the project and then follow these steps.
 
 ## Build
+```powershell Run
+./gradlew assemble
+```
 Run:
 1. ./gradlew assemble
 
