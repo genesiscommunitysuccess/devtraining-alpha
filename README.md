@@ -1,6 +1,6 @@
-# Answer-key of the Developer Training
+# devtraining-alpha
 
-This is the complete application built during the [developer training](https://docs.genesis.global/secure/getting-started/developer-training/training-intro/) and can be used as a reference for it.
+Answer-key of the Developer Training. This is the complete application built during the [developer training](https://docs.genesis.global/secure/getting-started/developer-training/training-intro/) and can be used as a reference for it.
 
 # Building, Running and Testing
 From the command line, cd into the root directory of the project and then follow these steps.
