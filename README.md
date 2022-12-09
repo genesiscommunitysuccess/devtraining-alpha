@@ -11,26 +11,31 @@ From the command line, cd into the root directory of the project and then follow
 ```
 
 ## Run
-Make sure Docker is running on your machine and run:
+- Make sure Docker is running on your machine and run:
 ```shell
 docker-compose build
 docker-compose up -d
 ```
 
-Now log into the `gsf` container:
+- Attach a terminal to the `gsf` Docker container:
 ```shell
 docker exec -it gsf bash
 ```
+Alternatively, you can use Docker Desktop Integrated Terminal for the containers you have just created (as explained [here](https://www.docker.com/blog/integrated-terminal-for-running-containers-extended-integration-with-containerd-and-more-in-docker-desktop-4-12/))
 
-And load the reference data (make sure answer Yes to the command prompt):
+- Now try logging in as alpha 
 ```shell
 su - alpha
+```
+
+- And load the reference data (make sure answer Yes to the command prompt):
+```shell
 cd /home/alpha/run/site-specific/data
 SendIt -a
 SetPrimary
 ```
 
-Check if all services are running:
+- Check if all services are running:
 ```shell
 mon
 ```
