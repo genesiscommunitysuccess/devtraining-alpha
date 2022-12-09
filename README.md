@@ -28,19 +28,19 @@ Alternatively, you can use Docker Desktop Integrated Terminal for the containers
 su - alpha
 ```
 
-- And load the reference data (make sure answer Yes to the command prompt):
-```shell
-cd /home/alpha/run/site-specific/data
-SendIt -a
-SetPrimary
-```
-
 - Check if all services are running:
 ```shell
 mon
 ```
 
 Feel free to keep running `mon` until all services are RUNNING.
+
+- Lastly, load the reference data (make sure answer Yes to the command prompt):
+```shell
+cd /home/alpha/run/site-specific/data
+SendIt -a
+SetPrimary
+```
 
 ## Test
 Allow up to 5 mins for all the services to be up and running, then open your browser and navigate to http://localhost:6060
