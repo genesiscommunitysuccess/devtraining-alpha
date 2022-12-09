@@ -13,6 +13,7 @@ From the command line, cd into the root directory of the project and then follow
 ## Run
 Make sure Docker is running on your machine and run:
 ```shell
+docker-compose build
 docker-compose up -d
 ```
 
