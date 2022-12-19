@@ -1,11 +1,14 @@
 import java.io.File
 import java.time.LocalDate
 import global.genesis.TradeStateMachine
+import global.genesis.gen.dao.Trade
+import global.genesis.alpha.message.event.TradeAllocated
+import global.genesis.alpha.message.event.TradeCancelled
+import global.genesis.alpha.message.event.PositionReport
 import global.genesis.commons.standards.GenesisPaths
 import global.genesis.gen.dao.repository.PositionAsyncRepository
 import global.genesis.gen.view.repository.TradeViewAsyncRepository
 import global.genesis.jackson.core.GenesisJacksonMapper
-import global.genesis.jackson.core.GenesisJacksonMapper.Companion.toJsonString
 
 /**
  * System              : Genesis Business Library

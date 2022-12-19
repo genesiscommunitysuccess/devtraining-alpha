@@ -15,7 +15,7 @@ import org.junit.Before
 import org.junit.Test
 import javax.inject.Inject
 
-class TradeViewTest : AbstractDatabaseTest() {
+class AlphaTradeViewTest : AbstractDatabaseTest() {
     @Inject
     lateinit var enhancedTradeViewRepository: TradeViewAsyncRepository
     override fun createMockDictionary(): GenesisDictionary = prodDictionary()

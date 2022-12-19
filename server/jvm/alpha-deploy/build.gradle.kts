@@ -29,6 +29,7 @@ dependencies {
     /* --- */
 
     /* Add additional dependencies on other external distributions here */
+    testImplementation(gradleTestKit())
 }
 tasks {
     copyDependencies {
