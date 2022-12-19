@@ -1,12 +1,11 @@
-/*
 package global.genesis
 
+import global.genesis.alpha.message.event.PositionReport
 import global.genesis.commons.model.GenesisSet
 import global.genesis.dictionary.GenesisDictionary
 import global.genesis.message.core.event.EventReply
 import global.genesis.testsupport.AbstractGenesisTestSupport
 import global.genesis.testsupport.GenesisTestConfig
-import global.genesis.position.message.event.PositionReport
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
@@ -15,8 +14,8 @@ class AlphaPositionReportWriteTest : AbstractGenesisTestSupport<GenesisSet>(
         addPackageName("global.genesis.eventhandler.pal")
         genesisHome = "/GenesisHome/"
         parser = { it }
-        scriptFileName = "position-eventhandler.kts"
-        initialDataFile = "data/REPORT_DATA.csv"
+        scriptFileName = "alpha-eventhandler.kts"
+        initialDataFile = "data/TEST_DATA.csv"
         addAuthCacheOverride("ENTITY_VISIBILITY")
     }
 ) {
@@ -31,4 +30,3 @@ class AlphaPositionReportWriteTest : AbstractGenesisTestSupport<GenesisSet>(
         sendEvent(PositionReport()).assertedCast<EventReply.EventAck>()
     }
 }
-*/

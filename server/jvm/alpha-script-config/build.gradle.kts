@@ -12,7 +12,7 @@ dependencies {
     testCompileOnly(project(":alpha-config"))
     testImplementation("global.genesis:genesis-dbtest")
     testImplementation("global.genesis:genesis-testsupport")
-    testImplementation("global.genesis:genesis-dataserver")
+    //testImplementation("global.genesis:genesis-dataserver")
     testImplementation(project(path = ":alpha-dictionary-cache", configuration = "codeGen"))
 }
 

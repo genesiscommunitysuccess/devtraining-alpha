@@ -1,3 +1,4 @@
+/*
 package global.genesis
 
 import com.google.inject.Inject
@@ -73,4 +74,5 @@ class AlphaDataServerTest : DataServerTest<TradeView>(
         updateJob.cancel()
     }
 }
+*/
 
