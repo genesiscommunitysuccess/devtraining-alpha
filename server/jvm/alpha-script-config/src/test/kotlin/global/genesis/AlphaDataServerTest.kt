@@ -15,7 +15,7 @@ import org.awaitility.kotlin.has
 import org.awaitility.kotlin.untilCallTo
 import org.junit.Test
 import java.util.concurrent.CopyOnWriteArrayList
-import global.genesis.dataserver.pal.
+import global.genesis.dataserver.pal.system.DataServerTest
 
 class AlphaDataServerTest : DataServerTest<TradeView>(
     genesisHome = "/genesisHome/",
@@ -75,4 +75,3 @@ class AlphaDataServerTest : DataServerTest<TradeView>(
     }
 }
 */
-

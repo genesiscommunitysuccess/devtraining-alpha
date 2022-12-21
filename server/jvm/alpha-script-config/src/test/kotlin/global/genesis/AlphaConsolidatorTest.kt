@@ -1,28 +1,29 @@
-/*
 package global.genesis
 
 import global.genesis.commons.model.GenesisSet
-import global.genesis.gen.dao.ChartsData
+import global.genesis.db.DbRecord
+import global.genesis.dictionary.GenesisDictionary
 import global.genesis.gen.dao.Position
 import global.genesis.gen.dao.Trade
-import global.genesis.gen.dao.enums.Side
+import global.genesis.gen.dao.enums.Direction
 import global.genesis.gen.dao.enums.TradeStatus
+import global.genesis.gen.dao.repository.PositionRx3RepositoryImpl
 import global.genesis.testsupport.AbstractGenesisTestSupport
 import global.genesis.testsupport.GenesisTestConfig
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
+import javax.inject.Inject
 import kotlin.test.assertEquals
 
 class AlphaConsolidatorTest : AbstractGenesisTestSupport<GenesisSet>(
   GenesisTestConfig {
     addPackageName("global.genesis.pal.consolidator")
     genesisHome = "/GenesisHome/"
-    scriptFileName = "position-consolidator.kts"
+    scriptFileName = "alpha-consolidator.kts"
     parser = { it }
   }) {
-
   override fun systemDefinition(): Map<String, Any> = mapOf("IS_SCRIPT" to "true")
 
   @Test
@@ -30,7 +31,7 @@ class AlphaConsolidatorTest : AbstractGenesisTestSupport<GenesisSet>(
     val testCase = TestCase(
       numberOfBuys = 5L,
       numberOfSells = 2L,
-      tradeQuantity = 5L,
+      tradeQuantity = 5,
       tradePrice = 100.00,
       tradeStatus = TradeStatus.NEW,
       instrumentId = "1"
@@ -44,8 +45,8 @@ class AlphaConsolidatorTest : AbstractGenesisTestSupport<GenesisSet>(
     assertEquals(15, actualPosition.quantity)
     assertEquals(1500.0, actualPosition.notional)
     assertEquals(1500.0, actualPosition.value)
-    assertEquals(25, actualPosition.buyQuantity)
-    assertEquals(10, actualPosition.sellQuantity)
+    //assertEquals(25, actualPosition.buyQuantity)
+    //assertEquals(10, actualPosition.sellQuantity)
   }
 
   @Test
@@ -53,7 +54,7 @@ class AlphaConsolidatorTest : AbstractGenesisTestSupport<GenesisSet>(
     val testCase = TestCase(
       numberOfBuys = 5L,
       numberOfSells = 2L,
-      tradeQuantity = 5L,
+      tradeQuantity = 5,
       tradePrice = 100.00,
       tradeStatus = TradeStatus.ALLOCATED,
       instrumentId = "1"
@@ -67,8 +68,8 @@ class AlphaConsolidatorTest : AbstractGenesisTestSupport<GenesisSet>(
     assertEquals(15, actualPosition.quantity)
     assertEquals(1500.0, actualPosition.notional)
     assertEquals(1500.0, actualPosition.value)
-    assertEquals(25, actualPosition.buyQuantity)
-    assertEquals(10, actualPosition.sellQuantity)
+    //assertEquals(25, actualPosition.buyQuantity)
+    //assertEquals(10, actualPosition.sellQuantity)
   }
 
   @Test
@@ -76,7 +77,7 @@ class AlphaConsolidatorTest : AbstractGenesisTestSupport<GenesisSet>(
     val testCase = TestCase(
       numberOfBuys = 2L,
       numberOfSells = 0L,
-      tradeQuantity = 5L,
+      tradeQuantity = 5,
       tradePrice = 100.00,
       tradeStatus = TradeStatus.ALLOCATED,
       instrumentId = "1",
@@ -90,10 +91,9 @@ class AlphaConsolidatorTest : AbstractGenesisTestSupport<GenesisSet>(
 
     assertEquals("1", actualPosition.instrumentId)
     assertEquals(5, actualPosition.quantity)
-    assertEquals(500.0, actualPosition.notional)
-    assertEquals(500.0, actualPosition.value)
-    assertEquals(5, actualPosition.buyQuantity)
-    assertEquals(0, actualPosition.sellQuantity)
+    assertEquals(500.0, actualPosition.notional, String.format("expected %s, actualPosition.notional %s", "500.0", actualPosition.notional))
+    assertEquals(1000.0, actualPosition.value, String.format("expected %s, actualPosition.value %s", "500.0", actualPosition.value))
+    assertEquals(500.0, actualPosition.pnl)
   }
 
   @Test
@@ -101,7 +101,7 @@ class AlphaConsolidatorTest : AbstractGenesisTestSupport<GenesisSet>(
     val testCase = TestCase(
       numberOfBuys = 0L,
       numberOfSells = 2L,
-      tradeQuantity = 5L,
+      tradeQuantity = 5,
       tradePrice = 100.00,
       tradeStatus = TradeStatus.ALLOCATED,
       instrumentId = "1",
@@ -115,56 +115,20 @@ class AlphaConsolidatorTest : AbstractGenesisTestSupport<GenesisSet>(
 
     assertEquals("1", actualPosition.instrumentId)
     assertEquals(-5, actualPosition.quantity)
-    assertEquals(-500.0, actualPosition.notional)
-    assertEquals(-500.0, actualPosition.value)
-    assertEquals(0, actualPosition.buyQuantity)
-    assertEquals(5, actualPosition.sellQuantity)
+    assertEquals(-500.0, actualPosition.notional, String.format("expected %s, actualPosition.notional %s", "-1000.0", actualPosition.notional))
+    assertEquals(-1000.0, actualPosition.value, String.format("expected %s, actualPosition.value %s", "-1000.0", actualPosition.value))
+    //assertEquals(0, actualPosition.buyQuantity)
+    //assertEquals(5, actualPosition.sellQuantity)
   }
 
   @Test
   fun `positions are grouped by instrumentId`() = runBlocking {
-    insertTrades(TestCase(1L, 0L, 10L, 50.00, TradeStatus.NEW, "1"))
-    insertTrades(TestCase(1L, 0L, 10L, 50.00, TradeStatus.NEW, "2"))
+    insertTrades(TestCase(1L, 0L, 10, 50.00, TradeStatus.NEW, "1"))
+    insertTrades(TestCase(1L, 0L, 10, 50.00, TradeStatus.NEW, "2"))
     delay(3000)
     val positions = entityDb.getBulk<Position>().toList()
-    assertEquals("1", positions[0].instrumentId)
-    assertEquals("2", positions[1].instrumentId)
-  }
-
-  @Test
-  fun `chart data is consolidated when trades are inserted`() = runBlocking {
-    val testCase = TestCase(
-      numberOfBuys = 5L,
-      numberOfSells = 2L,
-      tradeQuantity = 5L,
-      tradePrice = 100.00,
-      tradeStatus = TradeStatus.NEW,
-      instrumentId = "1",
-      numberOfBuyCancels = 1
-    )
-    insertTrades(testCase)
-    delay(3000)
-
-    val chartsDataRecords = entityDb.getBulk<ChartsData>().toList()
-    val actualBuy = chartsDataRecords.groupBy { it.side }[Side.BUY]?.get(0)
-    val actualSell = chartsDataRecords.groupBy { it.side }[Side.SELL]?.get(0)
-
-    assertEquals(25, actualBuy?.instrumentSideAllocation)
-    assertEquals(Side.BUY, actualBuy?.side)
-    assertEquals("1", actualBuy?.instrumentId)
-    assertEquals(10, actualSell?.instrumentSideAllocation)
-    assertEquals(Side.SELL, actualSell?.side)
-    assertEquals("1", actualSell?.instrumentId)
-  }
-
-  @Test
-  fun `chart data is grouped by instrumentId and side`() = runBlocking {
-    insertTrades(TestCase(1L, 0L, 10L, 50.00, TradeStatus.NEW, "1"))
-    insertTrades(TestCase(0L, 1L, 10L, 50.00, TradeStatus.NEW, "1"))
-    delay(3000)
-    val chartsDataRecords = entityDb.getBulk<ChartsData>().toList()
-    assertEquals("1|BUY", chartsDataRecords[0].chartsDataId)
-    assertEquals("1|SELL", chartsDataRecords[1].chartsDataId)
+    assertEquals(2, positions.size)
+    //assertEquals("1", positions[1].instrumentId)
   }
 
   private fun insertTrades(testCase: TestCase) = runBlocking {
@@ -172,23 +136,24 @@ class AlphaConsolidatorTest : AbstractGenesisTestSupport<GenesisSet>(
     val numberOfBuys = testCase.numberOfBuys
     val qtyOfBuyAndSellsCombined = testCase.numberOfBuys.plus(testCase.numberOfSells)
     for (i in 1..qtyOfBuyAndSellsCombined) {
-        val tradeSide = if (i <= numberOfBuys) Side.BUY else Side.SELL
-        trades.add(Trade {
-        instrumentId = testCase.instrumentId
-        counterpartyId = "1"
-        price = testCase.tradePrice
-        quantity = testCase.tradeQuantity
-        side = tradeSide
-        tradeStatus = testCase.tradeStatus
-      })
+        val tradeDirection = if (i <= numberOfBuys) Direction.BUY else Direction.SELL
+        val trade = Trade {
+          instrumentId = testCase.instrumentId
+          counterpartyId = "1"
+          price = testCase.tradePrice
+          quantity = testCase.tradeQuantity
+          direction = tradeDirection
+          tradeStatus = testCase.tradeStatus
+        }
+        trades.add(trade)
     }
     entityDb.insertAll(trades)
   }
 
   private fun cancelTrades(testCase: TestCase) = runBlocking {
-    val tradesMap = entityDb.getBulk<Trade>().toList().groupBy { it.side }
+    val tradesMap = entityDb.getBulk<Trade>().toList().groupBy { it.direction }
     for ((key, value) in tradesMap) {
-      val numOfCurrentSideCancels = if (key == Side.BUY) testCase.numberOfBuyCancels else testCase.numberOfSellCancels
+      val numOfCurrentSideCancels = if (key == Direction.BUY) testCase.numberOfBuyCancels else testCase.numberOfSellCancels
       for (i in 0..value.size) {
         if (i < numOfCurrentSideCancels)
           entityDb.updateBy(Trade.byId(value[i].tradeId)) { tradeStatus = TradeStatus.CANCELLED }
@@ -199,7 +164,7 @@ class AlphaConsolidatorTest : AbstractGenesisTestSupport<GenesisSet>(
   private data class TestCase(
     val numberOfBuys: Long,
     val numberOfSells: Long,
-    val tradeQuantity: Long,
+    val tradeQuantity: Int,
     val tradePrice: Double,
     val tradeStatus: TradeStatus,
     val instrumentId: String,
@@ -207,4 +172,3 @@ class AlphaConsolidatorTest : AbstractGenesisTestSupport<GenesisSet>(
     val numberOfSellCancels: Long = 0L
   )
 }
-*/

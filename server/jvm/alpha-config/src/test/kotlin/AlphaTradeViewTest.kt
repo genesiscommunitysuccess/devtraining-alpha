@@ -18,6 +18,7 @@ import javax.inject.Inject
 class AlphaTradeViewTest : AbstractDatabaseTest() {
     @Inject
     lateinit var enhancedTradeViewRepository: TradeViewAsyncRepository
+
     override fun createMockDictionary(): GenesisDictionary = prodDictionary()
 
     @Before
