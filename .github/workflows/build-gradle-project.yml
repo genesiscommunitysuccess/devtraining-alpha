@@ -17,8 +17,8 @@ jobs:
           JFROG_RO_COMMUNITY_USER: ${{ secrets.JFROG_RO_COMMUNITY_USER }}
           JFROG_RO_COMMUNITY_PASSWORD: ${{ secrets.JFROG_RO_COMMUNITY_PASSWORD }}
         run: |
-            echo genesisArtifactoryUser=${JFROG_RO_COMMUNITY_USER} > ./server/jvm/gradle.properties
-            echo genesisArtifactoryPassword=${JFROG_RO_COMMUNITY_PASSWORD} > ./server/jvm/gradle.properties
+            echo genesisArtifactoryUser=${JFROG_RO_COMMUNITY_USER} >> ./server/jvm/gradle.properties
+            echo genesisArtifactoryPassword=${JFROG_RO_COMMUNITY_PASSWORD} >> ./server/jvm/gradle.properties
 
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
