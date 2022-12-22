@@ -5,9 +5,6 @@ on: [push, pull_request]
 jobs:
   build-gradle-project:
     runs-on: ubuntu-latest
-    secrets:
-      JFROG_RO_COMMUNITY_USER: ${{ secrets.JFROG_RO_COMMUNITY_USER }}
-      JFROG_RO_COMMUNITY_PASSWORD: ${{ secrets.JFROG_RO_COMMUNITY_PASSWORD }}
     steps:
       - name: Checkout project sources
         uses: actions/checkout@v3
