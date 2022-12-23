@@ -24,4 +24,4 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Run build with Gradle Wrapper
-        run: ./gradlew build --info
+        run: ./gradlew build --info --warning-mode=all
