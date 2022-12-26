@@ -45,4 +45,10 @@ views {
             }
         }
     }
+
+    view("COUNTERPARTY_VIEW", COUNTERPARTY) {
+        fields {
+            COUNTERPARTY.allFields()
+        }
+    }
 }
