@@ -1,3 +1,4 @@
+/*
 package global.genesis
 
 import com.google.inject.Inject
@@ -41,7 +42,6 @@ class AlphaDataServerTradeTest : DataServerTest<Trade>(
         (authCache.toMap() as MutableMap<String, Set<String>>).clear()
     }
 
-    /*
     @Test
     fun `test first trade`() = runBlocking(coroutineContext) {
         authCache.publish("00000000001TRSP0", "JaneDee", true)
@@ -67,6 +67,6 @@ class AlphaDataServerTradeTest : DataServerTest<Trade>(
 
         updateJob.cancel()
     }
-
-     */
 }
+
+ */
