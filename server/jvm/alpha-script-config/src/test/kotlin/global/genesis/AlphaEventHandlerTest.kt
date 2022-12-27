@@ -60,9 +60,9 @@ class AlphaEventHandlerTest : AbstractGenesisTestSupport<GenesisSet>(
 
         result.assertedCast<EventReply.EventAck>()
         val trades = entityDb.getBulk<Trade>().toList()
-        val trade = trades[4]
+        val trade = trades[5]
         assertNotNull(trade)
-        assertEquals(5, trades.size)
+        assertEquals(6, trades.size)
         assertEquals("1", trade.counterpartyId)
         assertEquals("2", trade.instrumentId)
         assertEquals(TradeStatus.NEW, trade.tradeStatus)

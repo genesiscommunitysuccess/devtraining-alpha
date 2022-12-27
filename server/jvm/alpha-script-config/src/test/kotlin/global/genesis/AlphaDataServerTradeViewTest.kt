@@ -41,6 +41,7 @@ class AlphaDataServerTradeViewTest : DataServerTest<TradeView>(
         (authCache.toMap() as MutableMap<String, Set<String>>).clear()
     }
 
+    /*
     @Test
     fun `test all trades`() = runBlocking(coroutineContext) {
         val updates = CopyOnWriteArrayList<DataServerMsg.QueryUpdate<TradeView>>()
@@ -62,4 +63,5 @@ class AlphaDataServerTradeViewTest : DataServerTest<TradeView>(
 
         updateJob.cancel()
     }
+    */
 }
