@@ -19,6 +19,7 @@ import global.genesis.gen.dao.repository.TradeAsyncRepository
 import global.genesis.testsupport.dataserver.DataServerMsg
 import global.genesis.testsupport.dataserver.DataServerTest
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -45,21 +46,17 @@ class AlphaDataServerTradeTest : DataServerTest<Trade>(
     private lateinit var tableRepo: TradeAsyncRepository
 
     @Test
-    fun `test usd trades only`() = runBlocking(coroutineContext) {
+    fun `test ALL_PRICES trades`() = runBlocking(coroutineContext) {
         val updates = CopyOnWriteArrayList<DataServerMsg.QueryUpdate<Trade>>()
         val updateJob = launch {
-            dataLogon("ALL_PRICES", 4)
+            dataLogon("ALL_PRICES", 5)
                 .filterIsInstance<DataServerMsg.QueryUpdate<Trade>>()
                 .collect { updates.add(it) }
         }
 
-        val trades = tableRepo.getBulk().toList()
+        val trades = tableRepo.getBulk().take(4).toList()
 
-        //await.atMost(5, TimeUnit.MINUTES) untilCallTo { updates } has { size == 4 }
-        //await untilCallTo { updates } has { size == 4 }
-        await untilCallTo { updates } has { size == 4 }
-        //await untilCallTo { updates } has { count() == 1 }
-        //await untilCallTo { updates.count() } matches { count -> count == 1 }
+        await untilCallTo { updates } has { size == 1 }
 
         val rows: List<Trade> = updates.first().rows
 
