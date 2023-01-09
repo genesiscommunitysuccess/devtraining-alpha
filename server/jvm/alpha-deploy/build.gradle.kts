@@ -7,7 +7,7 @@ description = "alpha-deploy"
 dependencies {
     api(project(":alpha-eventhandler"))
     api(project(":alpha-messages"))
-    
+
     /* dependencies required for building the docker image from the Gradle task */
     genesisServer(
         group = "global.genesis",
@@ -34,4 +34,4 @@ tasks {
     copyDependencies {
         from(configurations.getByName("genesisServer"))
     }
- }
+}

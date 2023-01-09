@@ -1,3 +1,5 @@
+import global.genesis.gen.config.fields.Fields
+
 /**
  * System              : Genesis Business Library
  * Sub-System          : multi-pro-code-test Configuration
@@ -18,6 +20,8 @@ dataServer {
     }
     query("ALL_PRICES", TRADE) {
         fields {
+            TRADE_ID
+            INSTRUMENT_ID
             PRICE
             SYMBOL
         }
@@ -25,7 +29,7 @@ dataServer {
             trade.price!! > 0.0
         }
     }
-    query("ALL_COUNTERPARTIES", COUNTERPARTY)
+    query("ALL_COUNTERPARTIES", COUNTERPARTY_VIEW)
     query("ALL_INSTRUMENTS", INSTRUMENT)
     query("ALL_POSITIONS", POSITION)
 }

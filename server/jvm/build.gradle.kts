@@ -31,6 +31,13 @@ subprojects  {
         compileKotlin {
             kotlinOptions { jvmTarget = java }
         }
+
+        //testing should use H2 mem db
+        test {
+            systemProperty("DbLayer", "SQL")
+            systemProperty("DbHost", "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1")
+            systemProperty("DbQuotedIdentifiers", "true")
+        }        
     }
 }
 
