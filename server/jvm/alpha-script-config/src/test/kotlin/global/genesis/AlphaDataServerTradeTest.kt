@@ -38,7 +38,7 @@ class AlphaDataServerTradeTest : DataServerTest<Trade>(
     genesisHome = "/GenesisHome/",
     scriptFileName = "alpha-dataserver.kts",
     initialDataFile = "data/TEST_DATA.csv",
-    mapperBuilder = AlphaDataServerTradeTestDescription::buildRowMapper,
+    mapperBuilder = TradeDescription::buildRowMapper,
     authCacheOverride = "ENTITY_VISIBILITY"
 ) {
 
@@ -63,95 +63,6 @@ class AlphaDataServerTradeTest : DataServerTest<Trade>(
         assert(rows.map { it.price }.sorted() == trades.map { it.price }.sorted())
 
         updateJob.cancel()
-    }
-
-    object AlphaDataServerTradeTestDescription : Serializable, EntityDescription<Trade> {
-        public override val tableName: String = "TRADE"
-
-        private val dbRecordReader: TradeRowMapper<DbRecord> = TradeRowMapper(DbRecordReader)
-
-        private val genesisSetReader: TradeRowMapper<GenesisSet> = TradeRowMapper(GenesisSetReader)
-
-        public override val fieldToPropertyMap: Map<String, KMutableProperty1<Trade, *>> = mapOf(
-            "TRADE_ID" to GenesisGeneratedKProperty(Trade::tradeIdOrNull, Trade::tradeId),
-            "INSTRUMENT_ID" to Trade::instrumentId,
-            "PRICE" to Trade::price,
-            "SYMBOL" to Trade::symbol,
-        )
-
-        public override val primaryKey: UniqueEntityIndexReference<Trade>
-            get() = Trade.ById
-
-        public override val allIndexes: List<EntityIndexReference<Trade>> = listOf(
-            Trade.ById
-        )
-
-        public override val fields: List<TableField<TRADE, *>> = listOf(
-            TRADE.TRADE_ID,
-            TRADE.INSTRUMENT_ID,
-            TRADE.PRICE,
-            TRADE.SYMBOL,
-        )
-
-        public override val entityClass: KClass<Trade> = Trade::class
-
-        public override fun <I> buildRowMapper(valueReader: ValueReader<I>): RowMapper<I, Trade> =
-            TradeRowMapper(valueReader)
-
-        public override fun toDbRecord(entity: Trade): DbRecord {
-            val dbRecord = DbRecord("TRADE")
-            if (entity.isTradeIdInitialised) {
-                dbRecord.setString("TRADE_ID", entity.tradeId)
-            }
-            dbRecord.setString("INSTRUMENT_ID", entity.instrumentId)
-            dbRecord.setDouble("PRICE", entity.price)
-            dbRecord.setString("SYMBOL", entity.symbol)
-            return dbRecord
-        }
-
-        public override fun toDbRecordKeyFieldsOnly(entity: Trade): DbRecord {
-            val dbRecord = DbRecord("TRADE")
-            if (entity.isTradeIdInitialised) {
-                dbRecord.setString("TRADE_ID", entity.tradeId)
-            }
-            dbRecord.setString("INSTRUMENT_ID", entity.instrumentId)
-            dbRecord.setDouble("PRICE", entity.price)
-            return dbRecord
-        }
-
-        public override fun fromDbRecord(dbRecord: DbRecord): Trade = try {
-            dbRecordReader.mapRow(dbRecord)
-        } catch (e: Exception) {
-            throw EntityBuildingException(
-                """
-        |Error building entity from:
-        |""".trimMargin() + dbRecord.toString(), e
-            )
-        }
-
-        public override fun fromGenesisSet(genesisSet: GenesisSet): Trade = try {
-            genesisSetReader.mapRow(genesisSet)
-        } catch (e: Exception) {
-            throw EntityBuildingException(
-                """
-        |Error building entity from:
-        |""".trimMargin() + genesisSet.toString(), e
-            )
-        }
-
-        public class TradeRowMapper<I>(
-            private val valueReader: ValueReader<I>,
-        ) : RowMapper<I, Trade> {
-            public override fun mapRow(input: I): Trade {
-                val trade = Trade {
-                    valueReader.readNullableValue(input, String::class, "TRADE_ID")?.let { tradeId = it }
-                    instrumentId = valueReader.value(input, "INSTRUMENT_ID")
-                    price = valueReader.value(input, "PRICE")
-                    symbol = valueReader.nullableValue(input, "SYMBOL")
-                }
-                return trade
-            }
-        }
     }
 }
 
