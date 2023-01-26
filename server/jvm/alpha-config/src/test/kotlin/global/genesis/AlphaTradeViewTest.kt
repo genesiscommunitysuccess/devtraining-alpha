@@ -41,10 +41,10 @@ class AlphaTradeViewTest : AbstractDatabaseTest() {
         val now = DateTime.now()
         val trade = buildTrade("1L", now)
         rxEntityDb.insert(trade).blockingGet()
-        val tradeView = enhancedTradeViewRepository.get(TradeView.ById("1"))
+        val tradeView = enhancedTradeViewRepository.get(TradeView.ById("1L"))
         if (tradeView != null) {
             assertEquals("Testing AG", tradeView.counterpartyName)
-            assertEquals("FOO.L", tradeView.instrumentName)
+            assertEquals("BAR.L", tradeView.instrumentName)
             assertEquals(now, tradeView.tradeDate)
             assertEquals(12.0, tradeView.price, 0.0)
             assertEquals((100).toInt(), tradeView.quantity)
