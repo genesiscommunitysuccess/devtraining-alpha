@@ -1,6 +1,6 @@
 import {html, repeat, when, ref} from '@microsoft/fast-element';
 import type {Home} from './home';
-
+import { tradeFormCreateSchema, tradeFormUpdateSchema } from './schemas';
 
 export const positionsColumnDefs: any[] = [
     {field: 'INSTRUMENT_ID', headerName: 'Instrument'},
@@ -21,6 +21,8 @@ export const HomeTemplate = html<Home>`
           updateEvent = "EVENT_TRADE_MODIFY"
           deleteEvent = "EVENT_TRADE_CANCELLED"
           :columns=${x => x.columns}
+          :createFormUiSchema=${() => tradeFormCreateSchema}
+          :updateFormUiSchema=${() => tradeFormUpdateSchema}
         ></entity-management>
     </div>
     <div class="top-layout">

@@ -5,11 +5,6 @@ import {EntityManagement} from '@genesislcap/foundation-entity-management';
 import {ZeroGridPro} from '@genesislcap/foundation-zero-grid-pro';
 import {Connect} from '@genesislcap/foundation-comms';
 
-//import { ModuleRegistry } from '@ag-grid-community/core';
-//import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
-
-//ModuleRegistry.registerModules([ RowGroupingModule ]);
-
 EntityManagement; //imported from '@genesislcap/foundation-entity-management' to display Trade grid
 
 const name = 'home-route';
