@@ -11,15 +11,13 @@ export const HomeStyles = css`
   }
 
   .split-layout {
-      display: flex;
       flex-direction: column;
       flex: 1;
       width: 100%;
   }
 
   .top-layout {
-  height: 90%;
-  display: flex;
+  height: 45%;
   flex-direction: row;
   }
 
