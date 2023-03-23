@@ -55,7 +55,7 @@
     "watchlist": "^0.3.1",
     "webpack": "^5.45.1",
     "webpack-cli": "^4.5.0",
-    "webpack-dev-server": "^4.0.0-beta.3",
+    "webpack-dev-server": "^4.13.1",
     "webpack-merge": "^5.7.3"
   },
   "dependencies": {
