@@ -9,7 +9,7 @@ From the command line, cd into the root directory of the project and then follow
 In order to build this project see the [Build process](https://learn.genesis.global/docs/getting-started/developer-training/training-content-day1/#build).
 
 ## Deploy
-In order to deploy this project see the [Build process]([https://learn.genesis.global/docs/getting-started/developer-training/training-content-day1/#build](https://learn.genesis.global/docs/getting-started/developer-training/training-content-day1/#deploy)).
+In order to deploy this project see the [Deploy process](https://learn.genesis.global/docs/getting-started/developer-training/training-content-day1/#deploy).
 
 ## Start and Test
 First, follow the [starting the server steps](https://learn.genesis.global/docs/getting-started/developer-training/training-content-day1/#starting-the-server), and then [run the application locally](https://learn.genesis.global/docs/getting-started/developer-training/training-content-day2/#running-the-application-locally).
