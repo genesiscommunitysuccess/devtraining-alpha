@@ -1,7 +1,7 @@
 ext.set("localDaogenVersion", "ALPHA")
 
 plugins {
-    kotlin("jvm") version "1.7.10"
+    kotlin("jvm") version "1.9.0"
     `maven-publish`
     id("global.genesis.build")
 }
@@ -23,10 +23,10 @@ subprojects  {
     tasks {
         withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
             kotlinOptions {
-                freeCompilerArgs = listOf("-Xjsr305=strict", "-Xjvm-default=enable")
+                freeCompilerArgs = listOf("-Xjsr305=strict", "-Xjvm-default=all")
             }
         }
-        val java = "11"
+        val java = "17"
 
         compileKotlin {
             kotlinOptions { jvmTarget = java }
@@ -37,7 +37,15 @@ subprojects  {
             systemProperty("DbLayer", "SQL")
             systemProperty("DbHost", "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1")
             systemProperty("DbQuotedIdentifiers", "true")
-        }        
+        } 
+
+        afterEvaluate {
+	        val copyDependencies = tasks.findByName("copyDependencies") ?: return@afterEvaluate
+
+            tasks.withType<Jar> {
+                dependsOn(copyDependencies)
+            }
+        }               
     }
 }
 
@@ -74,7 +82,7 @@ allprojects {
 
     kotlin {
         jvmToolchain {
-            (this as JavaToolchainSpec).languageVersion.set(JavaLanguageVersion.of(11))
+            (this as JavaToolchainSpec).languageVersion.set(JavaLanguageVersion.of(17))
         }
     }
     tasks.withType<Jar> {
@@ -83,7 +91,7 @@ allprojects {
 
     java {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(11))
+            languageVersion.set(JavaLanguageVersion.of(17))
         }
     }
 
