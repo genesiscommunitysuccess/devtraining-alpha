@@ -20,6 +20,3 @@ dependencies {
 }
 
 description = "alpha-script-config"
-repositories {
-    mavenCentral()
-}
