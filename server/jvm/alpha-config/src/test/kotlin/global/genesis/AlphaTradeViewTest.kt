@@ -1,4 +1,5 @@
-package global.genesis.global.genesis
+package global.genesis
+
 import global.genesis.db.util.AbstractDatabaseTest
 import global.genesis.db.util.TestUtil
 import global.genesis.dictionary.GenesisDictionary
