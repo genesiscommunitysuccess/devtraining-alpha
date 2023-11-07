@@ -38,6 +38,22 @@ subprojects  {
             systemProperty("DbHost", "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1")
             systemProperty("DbQuotedIdentifiers", "true")
             useJUnitPlatform()
+
+            // Add exports and opens so ChronicleQueue can continue working in JDK 17.
+            // More info in: https://chronicle.software/chronicle-support-java-17/
+            jvmArgs = jvmArgs!! + listOf(
+                "--add-exports=java.base/jdk.internal.ref=ALL-UNNAMED",
+                "--add-exports=java.base/sun.nio.ch=ALL-UNNAMED",
+                "--add-exports=jdk.unsupported/sun.misc=ALL-UNNAMED",
+                "--add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED",
+                "--add-opens=jdk.compiler/com.sun.tools.javac=ALL-UNNAMED",
+                "--add-opens=java.base/java.lang=ALL-UNNAMED",
+                "--add-opens=java.base/java.lang.reflect=ALL-UNNAMED",
+                "--add-opens=java.base/java.io=ALL-UNNAMED",
+                "--add-opens=java.base/java.util=ALL-UNNAMED",
+                "--add-opens=java.base/java.nio=ALL-UNNAMED" // this one is opened for LMDB
+            )
+
         } 
 
         afterEvaluate {
