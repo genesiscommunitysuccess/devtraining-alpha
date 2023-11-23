@@ -39,8 +39,9 @@ views {
                 withInput(INSTRUMENT.ASSET_CLASS) {ASSET_CLASS ->
                     if (ASSET_CLASS.isNullOrEmpty()) {
                         "UNKOWN"
+                    } else {
+                        ASSET_CLASS
                     }
-                    ASSET_CLASS
                 }
             }
         }
